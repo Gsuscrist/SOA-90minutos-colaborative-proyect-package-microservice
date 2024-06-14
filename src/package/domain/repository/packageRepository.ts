@@ -9,11 +9,6 @@ export interface PackageRepository{
         origin: string,
         destiny: string,
         weight: number,
-        distance: number,
-        cost: number,
-        status: PackageStatus,
-        creationDate: Date,
-        deliveryDate: Date,
         details?: string,
     ):Promise<Package | null>;
 }

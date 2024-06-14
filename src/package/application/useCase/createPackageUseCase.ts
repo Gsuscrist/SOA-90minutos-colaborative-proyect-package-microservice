@@ -14,15 +14,10 @@ export class CreatePackageUseCase {
         origin: string,
         destiny: string,
         weight: number,
-        distance: number,
-        cost: number,
-        status: PackageStatus,
-        creationDate: Date,
-        deliveryDate: Date,
         details?: string,
     ):Promise<Package | null> {
         try {
-            return this.repository.createPackage(clientId,paymentId,orderId,origin,destiny,weight,distance,cost,status,creationDate,deliveryDate,details)
+            return this.repository.createPackage(clientId,paymentId,orderId,origin,destiny,weight,details)
         }catch (e){
             return null
         }

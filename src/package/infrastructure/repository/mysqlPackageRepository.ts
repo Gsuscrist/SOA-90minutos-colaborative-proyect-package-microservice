@@ -29,6 +29,7 @@ export class MysqlPackageRepository implements PackageRepository {
             let cost = await this.estimate_cost(distance,weight)
             let creationDate = Date.now()
             let deliveryDate = creationDate + oneWeekInMilliseconds;
+            let status = PackageStatus.Created
             //todo: add mysql sentence y todo el show
 
 

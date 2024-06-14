@@ -9,8 +9,16 @@ export class MysqlPackageRepository implements PackageRepository {
         //TODO:
         return 3;
     }
+    async check_discount(clientId:string){
+        //TODO: get client suscription type
+        // CON RABBIT
+        // si es anual, mensual o no tiene devolverlo
+        // si si tiene aparte del tipo regresar si es el primer envio
 
-    async estimate_cost(distance:number,weight:number){
+        return "anual";
+    }
+
+    async estimate_cost(distance:number,weight:number, clientId:string){
         const basePrice = 1051.87
         let price = distance * 1.25
         if(price < basePrice){
@@ -18,6 +26,23 @@ export class MysqlPackageRepository implements PackageRepository {
         }
         if (weight>85){
             price += 95
+        }
+
+        switch (await this.check_discount(clientId)){
+            case "anual":
+                price -= 2
+                break;
+            case "mensual":
+                price -= 1
+                break;
+            case "anualy1erEnvio":
+                price -= 4
+                break;
+            case "mensualy1erEnvio":
+                price -= 2
+                break;
+            default:
+                price = price
         }
 
 
@@ -29,7 +54,7 @@ export class MysqlPackageRepository implements PackageRepository {
         try {
             const uuid = uuidv4()
             let distance = await this.calculate_distance(origin,destiny)
-            let cost = await this.estimate_cost(distance,weight)
+            let cost = await this.estimate_cost(distance,weight,clientId)
             let creationDate = Date.now()
             let deliveryDate = creationDate + oneWeekInMilliseconds;
             let status = PackageStatus.Created

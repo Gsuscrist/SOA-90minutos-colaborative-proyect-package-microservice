@@ -15,5 +15,5 @@ export interface PackageRepository{
         creationDate: Date,
         deliveryDate: Date,
         details?: string,
-    ):Promise<Package>;
+    ):Promise<Package | null>;
 }

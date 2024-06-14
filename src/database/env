@@ -1,0 +1,5 @@
+DB_HOST:localhost
+DB_USER:root
+DB_PASSWORD:277353
+DB_DATABASE:packages
+

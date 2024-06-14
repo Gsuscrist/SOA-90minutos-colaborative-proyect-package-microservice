@@ -2,7 +2,7 @@ import {PackageRepository} from "../../domain/repository/packageRepository";
 import {PackageStatus} from "../../domain/entity/packageStatus.enum";
 import {Package} from "../../domain/entity/package";
 
-export class CreateUseCase{
+export class CreatePackageUseCase {
 
     constructor(readonly repository:PackageRepository) {
     }

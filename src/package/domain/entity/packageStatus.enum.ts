@@ -1,6 +1,7 @@
 
 export enum PackageStatus {
     Paid = "Pagado",
+    Created = "Creado",
     Packed = "Empaquetado",
     InRoute = "En ruta",
     InOffice = "En oficina",

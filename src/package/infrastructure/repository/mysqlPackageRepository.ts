@@ -90,5 +90,43 @@ export class MysqlPackageRepository implements PackageRepository {
         }
     }
 
+    async findById(id: string): Promise<Package | null> {
+        const [rows] = await query('SELECT * FROM packages WHERE id = ?', [id])as[any[],any];
+        if (rows.length === 0) {
+          return null;
+        }
+        const row = rows[0];
+        return new Package(row.id,
+            row.clientId,
+            row.paymentId,
+            row.orderId,
+            row.origin,
+            row.destiny,
+            row.weight,
+            row.distance,
+            row.cost,
+            row.status,
+            new Date(row.creationDate),
+            new Date(row.deliveryDate),
+            row.details,
+            row.deletedAt ? new Date(row.deletedAt) : undefined);
+    }
 
+    async findAll(): Promise<Package[]> {
+        const [rows] = await query('SELECT * FROM packages', [])as[any[],any];
+        return rows.map((row: any) => new Package(row.id,
+            row.clientId,
+            row.paymentId,
+            row.orderId,
+            row.origin,
+            row.destiny,
+            row.weight,
+            row.distance,
+            row.cost,
+            row.status,
+            new Date(row.creationDate),
+            new Date(row.deliveryDate),
+            row.details,
+            row.deletedAt ? new Date(row.deletedAt) : undefined));
+    }
 }

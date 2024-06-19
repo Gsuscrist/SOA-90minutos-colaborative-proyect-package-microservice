@@ -11,4 +11,7 @@ export interface PackageRepository{
         weight: number,
         details?: string,
     ):Promise<Package | null>;
+
+    findById(id:string):Promise<Package | null>;
+    findAll():Promise<Package[]>;
 }

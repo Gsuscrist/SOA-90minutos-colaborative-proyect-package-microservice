@@ -1,5 +1,5 @@
 import express from "express";
-import { createPackageController, deletePackageController, getAllPackagesController, getPackageController} from "../dependencies";
+import { createPackageController, getAllPackagesController, getPackageController} from "../dependencies";
 
 export const packageRoutes = express.Router();
 
@@ -9,4 +9,5 @@ packageRoutes.get('/v1/get', getAllPackagesController.handle.bind(getAllPackages
 
 packageRoutes.get('v1/get/:id', getPackageController.handle.bind(getPackageController))
 
-packageRoutes.delete('v1/get/:id', deletePackageController.handle.bind(deletePackageController));
+//! Uncomment
+// packageRoutes.delete('v1/get/:id', deletePackageController.handle.bind(deletePackageController));

@@ -4,14 +4,13 @@ import {PackageRepository} from "../../domain/repository/packageRepository";
 import {v4 as uuidv4} from 'uuid';
 import {query} from '../../../database/mysql';
 import {Client} from '@googlemaps/google-maps-services-js'
-import dotenv from "dotenv";
-dotenv.config();
+import {getMapsApiKey} from '../../../aws/parameter'
 
 
 export class MysqlPackageRepository implements PackageRepository {
 
     async calculate_distance(origin:string, destiny:string): Promise<number> {
-        const APIKEY = process.env.MAPSAPIKEY;
+        const APIKEY = await getMapsApiKey();
         const client = new Client({});
         if (typeof(APIKEY) === "undefined") {throw new Error("Missing API KEY!");}
         try {

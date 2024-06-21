@@ -12,6 +12,7 @@ import { UpdatePackageController } from "./controllers/updatePackageControllers"
 import { UpdateStatusUseCase } from "../application/useCase/updateStatusUseCase";
 import { UpdateStatusController } from "./controllers/updateStatusControllers";
 
+
 const mysqlPackageRepository = new MysqlPackageRepository();
 
 const createPackageUseCase = new CreatePackageUseCase(mysqlPackageRepository);
@@ -29,3 +30,7 @@ export const updatePackageController = new UpdatePackageController(updatePackage
 
 const updateStatusUseCase = new UpdateStatusUseCase(mysqlPackageRepository);
 export const updateStatusController = new UpdateStatusController(updateStatusUseCase);
+
+//! Descomentar para realizar deletePackageMethod
+// const deletePackageUseCase = new DeletePackageUseCase(mysqlPackageRepository);
+// export const deletePackageController = new DeletePackageController(deletePackageUseCase);

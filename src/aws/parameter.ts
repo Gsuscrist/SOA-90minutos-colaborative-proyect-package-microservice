@@ -24,4 +24,8 @@ async function getDatabaseCredentials(): Promise<DatabaseCredentials> {
     return JSON.parse(credentialsString);
 }
 
-export { getDatabaseCredentials, DatabaseCredentials };
+async function getMapsApiKey(): Promise<string> {
+    return await getParameter('/90minutes/dev/services/package/MAPSAPIKEY');
+}
+
+export { getMapsApiKey, getDatabaseCredentials, DatabaseCredentials };

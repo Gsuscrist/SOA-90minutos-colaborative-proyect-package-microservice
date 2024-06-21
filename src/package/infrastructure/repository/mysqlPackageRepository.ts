@@ -138,9 +138,9 @@ export class MysqlPackageRepository implements PackageRepository {
     }
 
     async findAll(): Promise<Package[]> {
-        const sql='SELECT * FROM packages'
-        const [rows]:any= await query(sql,[])
-        console.log(rows)
+        const sql="SELECT * FROM packages"
+        const rows:any= await query(sql,[])
+        console.log("rows:\n",rows)
         return rows.map((row: any) => new Package(row.id,
             row.clientId,
             row.paymentId,

@@ -38,10 +38,9 @@ export class MysqlPackageRepository implements PackageRepository {
     }
 
     async check_discount(clientId:string){
-        //TODO: get client suscription type
-        // CON RABBIT
-        // si es anual, mensual o no tiene devolverlo
-        // si si tiene aparte del tipo regresar si es el primer envio
+        //TODO:
+        // Rabbit brocker to get type of suscription of user and amount of 'envios'
+        // le que regrese pasarlo a un switch para regresar el tipo de descuento que se hara
 
         return "anual";
         // return "mensual";
@@ -59,24 +58,22 @@ export class MysqlPackageRepository implements PackageRepository {
         }
 
         switch (await this.check_discount(clientId)){
-            case "anual":
-                price -= 2
+            case "yearly":
+                price -= price  * 0.25
                 break;
-            case "mensual":
-                price -= 1
+            case "monthly":
+                price -= price  * 0.15
                 break;
-            case "anualy1erEnvio":
-                price -= 4
-                break;
-            case "mensualy1erEnvio":
-                price -= 2
+            case "firstShip":
+                price -= price  * 0.75
                 break;
             default:
                 price = price
+                break
         }
-
-
-        return price;
+        //TODO: una vez que se implemente rabbitMQ en check_discount, descomentar lo siguiente:
+        //return price;
+        return 1051.87
     }
 
     async createPackage(clientId: string, paymentId: string, orderId: string, origin: string, destiny: string, weight: number, details?: string | undefined): Promise<Package | null> {

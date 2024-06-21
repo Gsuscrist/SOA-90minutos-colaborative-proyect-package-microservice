@@ -26,6 +26,7 @@ export class MysqlPackageRepository implements PackageRepository {
             console.log("Executed SELECT query:", tempSelectSql);
             console.log("Current row before update:", rows);
 
+            
 
             // Verificar si la actualización afectó alguna fila
             if (result && result.affectedRows > 0) {

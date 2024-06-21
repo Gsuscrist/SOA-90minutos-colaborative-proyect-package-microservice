@@ -6,6 +6,7 @@ import {query} from '../../../database/mysql';
 import {Client} from '@googlemaps/google-maps-services-js'
 import {getMapsApiKey} from '../../../aws/parameter'
 
+
 export class MysqlPackageRepository implements PackageRepository {
     async calculate_distance(origin:string, destiny:string): Promise<number> {
         const APIKEY = await getMapsApiKey();

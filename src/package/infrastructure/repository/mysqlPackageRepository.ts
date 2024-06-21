@@ -1,17 +1,42 @@
-import { Package } from "../../domain/entity/package";
-import { PackageStatus } from "../../domain/entity/packageStatus.enum";
+import {Package} from "../../domain/entity/package";
+import {PackageStatus} from "../../domain/entity/packageStatus.enum";
 import {PackageRepository} from "../../domain/repository/packageRepository";
-import { v4 as uuidv4 } from 'uuid';
-import { query } from '../../../database/mysql';
+import {v4 as uuidv4} from 'uuid';
+import {query} from '../../../database/mysql';
+import {Client} from '@googlemaps/google-maps-services-js'
+import dotenv from "dotenv";
+dotenv.config();
+
 
 export class MysqlPackageRepository implements PackageRepository {
 
     async calculate_distance(origin:string, destiny:string): Promise<number> {
-        //TODO:
-        //Por el momento será distancia simulada
-        // return 3;    
-        return Math.floor(Math.random() * (1000 - 20 + 1)) + 20;
+        const APIKEY = process.env.MAPSAPIKEY;
+        const client = new Client({});
+        if (typeof(APIKEY) === "undefined") {throw new Error("Missing API KEY!");}
+        try {
+            const response = await client.distancematrix({
+                params: {
+                    origins: [origin],
+                    destinations: [destiny],
+                    key: APIKEY,
+                },
+                timeout: 1000, // milliseconds
+            });
+            if (response.data.rows[0].elements[0].status === 'OK') {
+                const distanceInMeters = response.data.rows[0].elements[0].distance.value;
+                console.log("distance: ",distanceInMeters)
+                return distanceInMeters / 1000;
+            } else {
+                throw new Error('No se pudo calcular la distancia.');
+            }
+
+        }catch (e){
+            console.log("error en calculate_distance:\n",e)
+            return 0;
+        }
     }
+
     async check_discount(clientId:string){
         //TODO: get client suscription type
         // CON RABBIT

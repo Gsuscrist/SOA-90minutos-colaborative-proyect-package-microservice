@@ -113,29 +113,34 @@ export class MysqlPackageRepository implements PackageRepository {
     }
 
     async findById(id: string): Promise<Package | null> {
-        const [rows] = await query('SELECT * FROM packages WHERE id = ?', [id])as[any[],any];
+        const SQL = 'SELECT * FROM packages WHERE id =?'
+        const params:any[]=[id]
+        const [rows]: any = await query(SQL, params);
         if (rows.length === 0) {
-          return null;
+            return null;
         }
-        const row = rows[0];
-        return new Package(row.id,
-            row.clientId,
-            row.paymentId,
-            row.orderId,
-            row.origin,
-            row.destiny,
-            row.weight,
-            row.distance,
-            row.cost,
-            row.status,
-            new Date(row.creationDate),
-            new Date(row.deliveryDate),
-            row.details,
-            row.deletedAt ? new Date(row.deletedAt) : undefined);
+        return new Package(
+            rows.id,
+            rows.client_id,
+            rows.payment_id,
+            rows.order_id,
+            rows.origin,
+            rows.destiny,
+            rows.weight,
+            rows.distance,
+            rows.cost,
+            rows.status,
+            new Date(rows.creation_date),
+            new Date(rows.delivery_date),
+            rows.details,
+            rows.deleted_at ? new Date(rows.deleted_at) : undefined
+        );
     }
 
     async findAll(): Promise<Package[]> {
-        const [rows] = await query('SELECT * FROM packages', [])as[any[],any];
+        const sql="SELECT * FROM packages"
+        const rows:any= await query(sql,[])
+        console.log("rows:\n",rows)
         return rows.map((row: any) => new Package(row.id,
             row.clientId,
             row.paymentId,

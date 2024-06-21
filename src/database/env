@@ -1,6 +1,0 @@
-DB_HOST:parcel-service-db.c188oo2ecyux.us-east-2.rds.amazonaws.com
-DB_USER:admin
-DB_PASSWORD:adminparcel
-DB_DATABASE:test_package_microservice
-
-MAPSAPIKEY=AIzaSyBQ7rhPxI5DI5UcwCoVXm_Od77pKoWP5og

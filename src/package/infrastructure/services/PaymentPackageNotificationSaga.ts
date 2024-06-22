@@ -1,7 +1,7 @@
 import { Signale } from "signale";
 import { setupRabbitMQ } from "../config/RabbitConfig";
 
-export class PaymentPackageNotificationProducer {
+export class PaymentPackageNotificationSaga {
     private queueName: string = process.env.RABBIT_QUEUE_PAYMENT_PACKAGE_RECEIVE_NOTIFICATION || 'default';
     private exchangeName: string = process.env.RABBIT_EXCHANGE_PAYMENT || 'default';
     private routingKey: string = process.env.RABBIT_ROUTING_KEY_PAYMENT_PACKAGE_RECEIVE_NOTIFICATION || 'default';

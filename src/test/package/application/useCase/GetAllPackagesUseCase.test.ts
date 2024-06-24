@@ -49,9 +49,9 @@ describe('GetAllPackagesUseCase', () => {
       origin: 'Origin Address 1',
       destiny: 'Destiny Address 1',
       weight: 10,
-      distance: 20,
+      distance: 50,
       cost: 30,
-      status: PackageStatus.Paid,
+      status: PackageStatus.Created,
       details: 'Package details 1',
     });
 
@@ -63,9 +63,9 @@ describe('GetAllPackagesUseCase', () => {
       origin: 'Origin Address 2',
       destiny: 'Destiny Address 2',
       weight: 15,
-      distance: 30,
+      distance: 50,
       cost: 45,
-      status: PackageStatus.Paid,
+      status: PackageStatus.Created,
       details: 'Package details 2',
     });
   });

@@ -49,9 +49,9 @@ describe('GetPackageUseCase', () => {
         origin: 'Origin Address 1',
         destiny: 'Destiny Address 1',
         weight: 10,
-        distance: 20,
+        distance: 50,
         cost: 30,
-        status: PackageStatus.Paid,
+        status: PackageStatus.Created,
         details: 'Package details 1',
       });
   

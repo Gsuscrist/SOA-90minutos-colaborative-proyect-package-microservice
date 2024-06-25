@@ -16,10 +16,14 @@ export class CreatePackageUseCase {
         details?: string
     ): Promise<Package | null> {
         try {
-            //get discount
-            const discount = await this.discountRequestSaga.sendDiscountRequest(clientId)
-            console.log("el descuento es de : ", discount)
+            let discount: number | undefined;
+            while (discount === undefined) {
+                discount = await this.discountRequestSaga.sendDiscountRequest(clientId);
+            }
+            console.log("El descuento es de: ", discount);
+
             return await this.repository.createPackage(clientId, paymentId, orderId, origin, destiny, weight, details);
+
         } catch (e) {
             console.error("Error in CreatePackageUseCase:", e);
             return null;

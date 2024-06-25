@@ -1,5 +1,5 @@
 import express from "express";
-import { createPackageController, getAllPackagesController, getPackageController, updatePackageController,updateStatusController} from "../dependencies";
+import { createPackageController, getAllPackagesController, getPackageController, updatePackageController,updateStatusController,deletePackageController} from "../dependencies";
 
 
 export const packageRoutes = express.Router();
@@ -9,6 +9,5 @@ packageRoutes.get('/v1/get', getAllPackagesController.handle.bind(getAllPackages
 packageRoutes.get('/v1/get/:id', getPackageController.handle.bind(getPackageController))
 packageRoutes.put('/v1/put', updatePackageController.run.bind(updatePackageController));
 packageRoutes.patch('/v1/updateStatus', updateStatusController.run.bind(updateStatusController));
-//! Uncomment
-// packageRoutes.delete('v1/get/:id', deletePackageController.handle.bind(deletePackageController));
+packageRoutes.delete('v1/get/:id', deletePackageController.handle.bind(deletePackageController));
 

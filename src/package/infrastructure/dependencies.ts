@@ -11,11 +11,14 @@ import { UpdatePackageUseCase } from "../application/useCase/updatePackageUsecas
 import { UpdatePackageController } from "./controllers/updatePackageControllers";
 import { UpdateStatusUseCase } from "../application/useCase/updateStatusUseCase";
 import { UpdateStatusController } from "./controllers/updateStatusControllers";
+import { DeletePackageController } from "./controllers/deletePackageController";
+import { DeletePackageUseCase } from "../application/useCase/deletePackageUseCase";
 import {CheckUserDiscountResponseSaga} from "./services/CheckUserDiscountResponseSaga";
 import {GetAllPackageCommentRequestSaga} from "./services/GetAllPackageCommentRequestSaga";
 import {GetAllPackageRatingRequestSaga} from "./services/GetAllPackageRatingRequestSaga";
 import {GetAllPackagesRequestSaga} from "./services/GetAllPackagesRequestSaga";
 import {DiscountRequestSaga} from "./services/DiscountRequestSaga";
+
 
 
 const mysqlPackageRepository = new MysqlPackageRepository();
@@ -42,7 +45,6 @@ export const updatePackageController = new UpdatePackageController(updatePackage
 const updateStatusUseCase = new UpdateStatusUseCase(mysqlPackageRepository);
 export const updateStatusController = new UpdateStatusController(updateStatusUseCase);
 
+const deletePackageUseCase = new DeletePackageUseCase(mysqlPackageRepository);
+export const deletePackageController = new DeletePackageController(deletePackageUseCase);
 
-//! Descomentar para realizar deletePackageMethod
-// const deletePackageUseCase = new DeletePackageUseCase(mysqlPackageRepository);
-// export const deletePackageController = new DeletePackageController(deletePackageUseCase);

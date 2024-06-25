@@ -3,6 +3,7 @@ import { Package } from "../entity/package";
 import { PackageStatus } from "../entity/packageStatus.enum";
 
 export interface PackageRepository {
+    delete(id: string): Promise<void>;
 
     createPackage(
         clientId: string,

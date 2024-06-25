@@ -11,11 +11,22 @@ import { UpdatePackageUseCase } from "../application/useCase/updatePackageUsecas
 import { UpdatePackageController } from "./controllers/updatePackageControllers";
 import { UpdateStatusUseCase } from "../application/useCase/updateStatusUseCase";
 import { UpdateStatusController } from "./controllers/updateStatusControllers";
+import {CheckUserDiscountResponseSaga} from "./services/CheckUserDiscountResponseSaga";
+import {GetAllPackageCommentRequestSaga} from "./services/GetAllPackageCommentRequestSaga";
+import {GetAllPackageRatingRequestSaga} from "./services/GetAllPackageRatingRequestSaga";
+import {GetAllPackagesRequestSaga} from "./services/GetAllPackagesRequestSaga";
+import {DiscountRequestSaga} from "./services/DiscountRequestSaga";
 
 
 const mysqlPackageRepository = new MysqlPackageRepository();
+export const initCheckUserDiscountResponseSaga = new CheckUserDiscountResponseSaga();
+export const initGetAllPackageCommentRequestSaga = new GetAllPackageCommentRequestSaga();
+export const initGetAllPackageRatingRequestSaga = new GetAllPackageRatingRequestSaga();
+export const initGetAllPackagesRequestSaga = new GetAllPackagesRequestSaga();
+export const initDiscountRequestSaga = new DiscountRequestSaga();
 
-const createPackageUseCase = new CreatePackageUseCase(mysqlPackageRepository);
+
+const createPackageUseCase = new CreatePackageUseCase(mysqlPackageRepository, initDiscountRequestSaga);
 
 export const createPackageController = new CreatePackageController(createPackageUseCase);
 
@@ -30,6 +41,7 @@ export const updatePackageController = new UpdatePackageController(updatePackage
 
 const updateStatusUseCase = new UpdateStatusUseCase(mysqlPackageRepository);
 export const updateStatusController = new UpdateStatusController(updateStatusUseCase);
+
 
 //! Descomentar para realizar deletePackageMethod
 // const deletePackageUseCase = new DeletePackageUseCase(mysqlPackageRepository);

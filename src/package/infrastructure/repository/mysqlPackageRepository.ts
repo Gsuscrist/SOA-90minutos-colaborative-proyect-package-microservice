@@ -240,5 +240,8 @@ export class MysqlPackageRepository implements PackageRepository {
             return { package: null, message: 'Error occurred' };
         }
     }
+    async delete(id: string): Promise<void> {
+        await query('DELETE FROM packages WHERE id = ?', [id]);
+    }
 
 }

@@ -2,7 +2,13 @@
 import express from 'express';
 import { Signale } from 'signale';
 import { packageRoutes } from './package/infrastructure/routes/packageRoutes';
-import { initCheckUserDiscountResponseSaga, initGetAllPackageCommentRequestSaga, initGetAllPackageRatingRequestSaga, initGetAllPackagesRequestSaga } from './package/infrastructure/dependencies';
+import {
+    initCheckUserDiscountResponseSaga,
+    initDiscountRequestSaga,
+    initGetAllPackageCommentRequestSaga,
+    initGetAllPackageRatingRequestSaga,
+    initGetAllPackagesRequestSaga
+} from './package/infrastructure/dependencies';
 const bodyParser = require('body-parser');
 const app = express();
 let server = null;
@@ -16,17 +22,13 @@ app.use(bodyParser.json());
 
 
 async function startServer() {
-    await initCheckUserDiscountResponseSaga();
-    await initGetAllPackageCommentRequestSaga();
-    await initGetAllPackageRatingRequestSaga();
-    await initGetAllPackagesRequestSaga();
+    await initCheckUserDiscountResponseSaga.listenForCheckUserDiscountResponses();
+    await initGetAllPackageCommentRequestSaga.listenForGetAllPackageCommentRequests();
+    await initGetAllPackageRatingRequestSaga.listenForGetAllPackageRatingRequests();
+    await initGetAllPackagesRequestSaga.listenForGetAllPackagesRequests();
     server = app.listen(8080, () => {
         signale.success("Server on line in port: 8080")
     })
 }
 
 startServer();
-=======
-app.listen(8080,()=>{
-    signale.success("Server on line in port: 8080")
-})

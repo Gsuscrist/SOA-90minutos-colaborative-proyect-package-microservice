@@ -35,9 +35,12 @@ export class MysqlPackageRepository implements PackageRepository {
         }
     }
     async check_discount(clientId:string){
+
         //TODO:
         // Rabbit brocker to get type of suscription of user and amount of 'envios'
         // le que regrese pasarlo a un switch para regresar el tipo de descuento que se hara
+
+
 
         return "anual";
         // return "mensual";
@@ -171,6 +174,10 @@ export class MysqlPackageRepository implements PackageRepository {
             
             const tempSelectSql = "SELECT * FROM packages WHERE id = ?";
             const [rows] = await query(tempSelectSql, [id]) as [any[], any];
+
+            if (status ===PackageStatus.Delivered){
+                //TODO: service request to send notification
+            }
 
             console.log("Executed SELECT query:", tempSelectSql);
             console.log("Current row before update:", rows);

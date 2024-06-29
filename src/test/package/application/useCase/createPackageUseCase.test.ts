@@ -2,13 +2,15 @@
 import { CreatePackageUseCase } from '../../../../package/application/useCase/createPackageUseCase';
 import { MockPackageRepository } from '../../../mock/packageRepositoryMock';
 import { Package } from '../../../../package/domain/entity/package';
+import {DiscountRequestSaga} from "../../../../package/infrastructure/services/DiscountRequestSaga";
 describe('CreatePackageUseCase', () => {
   let mockRepository: MockPackageRepository;
+  let discountRequestSaga: DiscountRequestSaga
   let createPackageUseCase: CreatePackageUseCase;
 
   beforeEach(() => {
     mockRepository = new MockPackageRepository();
-    createPackageUseCase = new CreatePackageUseCase(mockRepository);
+    createPackageUseCase = new CreatePackageUseCase(mockRepository,discountRequestSaga);
   });
 
   it('debería crear un nuevo paquete exitosamente', async () => {

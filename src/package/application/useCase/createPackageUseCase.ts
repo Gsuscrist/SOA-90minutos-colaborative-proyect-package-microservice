@@ -22,7 +22,7 @@ export class CreatePackageUseCase {
             }
             console.log("El descuento es de: ", discount);
 
-            return await this.repository.createPackage(clientId, paymentId, orderId, origin, destiny, weight, details);
+            return await this.repository.createPackage(clientId, paymentId, orderId, origin, destiny, weight, discount, details,);
 
         } catch (e) {
             console.error("Error in CreatePackageUseCase:", e);

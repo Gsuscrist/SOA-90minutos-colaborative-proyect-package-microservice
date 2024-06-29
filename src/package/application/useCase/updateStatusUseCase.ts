@@ -13,9 +13,10 @@ export class UpdateStatusUseCase {
         status: PackageStatus
     ): Promise<Package | null| any> {
         try {
-            
             const result = await this.repository.updateStatus(id, status);
             if (result && result) {
+                //TODO: llamar cola para enviar los datos regresados por el metodo
+                await this.repository.sendNotification(id)
                 return result;
             } else {
                 console.error("Update failed:");

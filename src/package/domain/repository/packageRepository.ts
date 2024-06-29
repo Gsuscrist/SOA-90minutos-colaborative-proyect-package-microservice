@@ -12,7 +12,7 @@ export interface PackageRepository {
         origin: string,
         destiny: string,
         weight: number,
-
+        discount:number,
         details?: string
     ): Promise<Package | null>;
 
@@ -28,6 +28,7 @@ export interface PackageRepository {
     ): Promise<Package | null>;
 
     updateStatus(id: string, status: PackageStatus): Promise<Package | null | any>;
+    sendNotification(id: string):Promise<Package>
 
 
 }

@@ -34,22 +34,8 @@ export class MysqlPackageRepository implements PackageRepository {
             return 0;
         }
     }
-    async check_discount(clientId:string){
 
-        //TODO:
-        // Rabbit brocker to get type of suscription of user and amount of 'envios'
-        // le que regrese pasarlo a un switch para regresar el tipo de descuento que se hara
-
-
-
-        return "anual";
-        // return "mensual";
-        // return 0;
-    }
-    
-
-
-    async estimate_cost(distance:number,weight:number, clientId:string){
+    async estimate_cost(distance:number,weight:number, discount:number){
         const basePrice = 1051.87
         let price = distance * 1.25
         if(price < basePrice){
@@ -58,26 +44,11 @@ export class MysqlPackageRepository implements PackageRepository {
         if (weight>85){
             price += 95
         }
+        price -= price * discount
 
-        switch (await this.check_discount(clientId)){
-            case "yearly":
-                price -= price  * 0.25
-                break;
-            case "monthly":
-                price -= price  * 0.15
-                break;
-            case "firstShip":
-                price -= price  * 0.75
-                break;
-            default:
-                price = price
-                break
-        }
-        //TODO: una vez que se implemente rabbitMQ en check_discount, descomentar lo siguiente:
-        //return price;
-        return 1051.87
+        return price;
     }
-    async createPackage(clientId: string, paymentId: string, orderId: string, origin: string, destiny: string, weight: number, details?: string | undefined): Promise<Package | null> {
+    async createPackage(clientId: string, paymentId: string, orderId: string, origin: string, destiny: string, weight: number, discount:number ,details?: string | undefined): Promise<Package | null> {
         let oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
         try {
 
@@ -85,7 +56,7 @@ export class MysqlPackageRepository implements PackageRepository {
             
             const uuid = uuidv4()
             let distance = await this.calculate_distance(origin, destiny)
-            let cost = await this.estimate_cost(distance,weight,clientId)
+            let cost = await this.estimate_cost(distance,weight,discount)
             // let creationDate = Date.now()
             let creationDate = new Date();
             const deliveryDate = new Date(creationDate.getTime() + oneWeekInMilliseconds);
@@ -249,6 +220,15 @@ export class MysqlPackageRepository implements PackageRepository {
     }
     async delete(id: string): Promise<void> {
         await query('DELETE FROM packages WHERE id = ?', [id]);
+    }
+
+    async sendNotification(id:string){
+        const packageInfo= await this.findById(id)
+        if(!packageInfo){
+            throw new Error("No package found for client id");
+        }
+        return packageInfo
+
     }
 
 }

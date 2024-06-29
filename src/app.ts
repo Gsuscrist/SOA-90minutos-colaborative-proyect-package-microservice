@@ -3,6 +3,7 @@ import express from 'express';
 import { Signale } from 'signale';
 import { packageRoutes } from './package/infrastructure/routes/packageRoutes';
 import {
+    getUserInfoResponseSaga,
     initCheckUserDiscountResponseSaga,
     initDiscountRequestSaga,
     initGetAllPackageCommentRequestSaga,
@@ -26,6 +27,7 @@ async function startServer() {
     await initGetAllPackageCommentRequestSaga.listenForGetAllPackageCommentRequests();
     await initGetAllPackageRatingRequestSaga.listenForGetAllPackageRatingRequests();
     await initGetAllPackagesRequestSaga.listenForGetAllPackagesRequests();
+    await getUserInfoResponseSaga.execute();
     server = app.listen(8080, () => {
         signale.success("Server on line in port: 8080")
     })

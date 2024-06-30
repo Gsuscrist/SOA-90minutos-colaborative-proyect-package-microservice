@@ -112,9 +112,9 @@ export class MysqlPackageRepository implements PackageRepository {
         const rows:any= await query(sql,[])
         console.log("rows:\n",rows)
         return rows.map((row: any) => new Package(row.id,
-            row.clientId,
-            row.paymentId,
-            row.orderId,
+            row.client_id,
+            row.payment_id,
+            row.order_id,
             row.origin,
             row.destiny,
             row.weight,

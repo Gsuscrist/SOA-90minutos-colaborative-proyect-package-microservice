@@ -21,6 +21,7 @@ describe('GetPackageUseCase', () => {
         'Origin Address 1',
         'Destiny Address 1',
         10,
+        1185,
         'Package details 1'
       );
       mockPackageRepository.createPackage(
@@ -30,6 +31,7 @@ describe('GetPackageUseCase', () => {
         'Origin Address 2',
         'Destiny Address 2',
         15,
+        1185,
         'Package details 2'
       );
   

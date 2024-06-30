@@ -5,12 +5,11 @@ import { Package } from '../../../../package/domain/entity/package';
 import {DiscountRequestSaga} from "../../../../package/infrastructure/services/DiscountRequestSaga";
 describe('CreatePackageUseCase', () => {
   let mockRepository: MockPackageRepository;
-  let discountRequestSaga: DiscountRequestSaga
   let createPackageUseCase: CreatePackageUseCase;
 
   beforeEach(() => {
     mockRepository = new MockPackageRepository();
-    createPackageUseCase = new CreatePackageUseCase(mockRepository,discountRequestSaga);
+    createPackageUseCase = new CreatePackageUseCase(mockRepository);
   });
 
   it('debería crear un nuevo paquete exitosamente', async () => {
@@ -20,9 +19,10 @@ describe('CreatePackageUseCase', () => {
     const origin = 'origin1';
     const destiny = 'destiny1';
     const weight = 50;
+    const cost=1185;
     const details = 'Test details';
 
-    const result = await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight, details);
+    const result = await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight, cost, details);
 
     expect(result).toBeInstanceOf(Package);
     expect(result?.clientId).toBe(clientId);
@@ -44,8 +44,9 @@ describe('CreatePackageUseCase', () => {
     const origin = 'origin2';
     const destiny = 'destiny2';
     const weight = 30;
+    const cost = 1185
 
-    const result = await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight);
+    const result = await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight,cost);
 
     expect(result).toBeInstanceOf(Package);
     expect(result?.clientId).toBe(clientId);
@@ -67,9 +68,10 @@ describe('CreatePackageUseCase', () => {
     const origin = 'origin3';
     const destiny = 'destiny3';
     const weight = 60;
+    const cost = 1185
     const details = 'Detalles adicionales';
 
-    const result = await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight, details);
+    const result = await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight,cost, details);
 
     expect(result).toBeInstanceOf(Package);
     expect(result?.clientId).toBe(clientId);
@@ -91,9 +93,10 @@ describe('CreatePackageUseCase', () => {
     const origin = 'origin4';
     const destiny = 'destiny4';
     const weight = -10;
+    const cost = 1185
 
     try {
-      await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight);
+      await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight,cost);
     } catch (error) {
       if (error instanceof Error) {
         expect(error.message).toBe('Invalid data');
@@ -112,8 +115,9 @@ describe('CreatePackageUseCase', () => {
     const origin = 'origin6';
     const destiny = 'destiny6';
     const weight = 70;
+    const cost = 1185
 
-    await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight);
+    await createPackageUseCase.run(clientId, paymentId, orderId, origin, destiny, weight,cost);
 
     expect(createPackageSpy).toHaveBeenCalledWith(clientId, paymentId, orderId, origin, destiny, weight, undefined);
   });
@@ -123,7 +127,7 @@ describe('CreatePackageUseCase', () => {
       throw new Error('Simulated repository error');
     });
 
-    const result = await createPackageUseCase.run('client5', 'payment5', 'order5', 'origin5', 'destiny5', 50);
+    const result = await createPackageUseCase.run('client5', 'payment5', 'order5', 'origin5', 'destiny5', 50,1185);
 
     expect(result).toBeNull();
   });
@@ -133,7 +137,7 @@ describe('CreatePackageUseCase', () => {
       throw new Error('Simulated error');
     });
 
-    const result = await createPackageUseCase.run('client1', 'payment1', 'order1', 'origin1', 'destiny1', 50);
+    const result = await createPackageUseCase.run('client1', 'payment1', 'order1', 'origin1', 'destiny1', 50,1185);
 
     expect(result).toBeNull();
   });
@@ -143,6 +147,7 @@ describe('CreatePackageUseCase', () => {
     const origin = 'Carretera Villaflores s/n, Los Arbolitos, Berriozabal, Chis.';
     const destiny = 'Carretera Villaflores 650, CHIS 133 592, El Mirador, El Suspiro, 29100 Suchiapa, Chis.';
     const weight = 60;
+    const cost = 1185
 
     const newPackage = await createPackageUseCase.run(
       '2',
@@ -151,6 +156,7 @@ describe('CreatePackageUseCase', () => {
       origin,
       destiny,
       weight,
+      cost,
       'Manejar con cuidado'
     );
 

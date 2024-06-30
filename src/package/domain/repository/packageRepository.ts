@@ -1,6 +1,7 @@
 
 import { Package } from "../entity/package";
 import { PackageStatus } from "../entity/packageStatus.enum";
+import {Json} from "aws-sdk/clients/robomaker";
 
 export interface PackageRepository {
     delete(id: string): Promise<void>;
@@ -12,12 +13,13 @@ export interface PackageRepository {
         origin: string,
         destiny: string,
         weight: number,
-        discount:number,
+        cost:number,
         details?: string
     ): Promise<Package | null>;
 
     findById(id: string): Promise<Package | null>;
     findAll(): Promise<Package[]>;
+    calculateCost(origin:string,destiny:string,weight:number):Promise<{ subtotal: number}|null>
 
     updatePackage(
         id: string,

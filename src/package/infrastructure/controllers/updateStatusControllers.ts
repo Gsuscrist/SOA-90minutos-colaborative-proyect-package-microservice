@@ -18,7 +18,6 @@ export class UpdateStatusController {
                     message: 'Invalid package status',
                 });
             }
-            console.log('AAAAAAA',statusEnum)
             const updatedPackage = await this.useCase.run(id, statusEnum);
 
             if (updatedPackage) {

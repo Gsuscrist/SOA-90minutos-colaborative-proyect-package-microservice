@@ -10,8 +10,8 @@ export class CreatePackageController {
 
     async run(req: Request, res: Response) {
         try {
-            let {clientId, paymentId, orderId, origin, destiny, weight, details} = req.body
-            const packages = await this.useCase.run(clientId,paymentId,orderId,origin,destiny,weight, details)
+            let {clientId, paymentId, orderId, origin, destiny, weight,cost, details} = req.body
+            const packages = await this.useCase.run(clientId,paymentId,orderId,origin,destiny,weight,cost, details)
             if (packages) {
                 return res.status(201).send({
                     status: "Success",

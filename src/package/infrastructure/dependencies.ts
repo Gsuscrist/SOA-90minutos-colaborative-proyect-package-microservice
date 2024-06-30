@@ -18,6 +18,8 @@ import {GetAllPackageCommentRequestSaga} from "./services/GetAllPackageCommentRe
 import {GetAllPackageRatingRequestSaga} from "./services/GetAllPackageRatingRequestSaga";
 import {GetAllPackagesRequestSaga} from "./services/GetAllPackagesRequestSaga";
 import {DiscountRequestSaga} from "./services/DiscountRequestSaga";
+import {CalculateCostPackageUseCase} from "../application/useCase/calculateCostPackageUseCase";
+import {CalculateCostPackageController} from "./controllers/calculateCostPackageController";
 
 
 
@@ -29,7 +31,7 @@ export const initGetAllPackagesRequestSaga = new GetAllPackagesRequestSaga();
 export const initDiscountRequestSaga = new DiscountRequestSaga();
 
 
-const createPackageUseCase = new CreatePackageUseCase(mysqlPackageRepository, initDiscountRequestSaga);
+const createPackageUseCase = new CreatePackageUseCase(mysqlPackageRepository);
 
 export const createPackageController = new CreatePackageController(createPackageUseCase);
 
@@ -48,3 +50,5 @@ export const updateStatusController = new UpdateStatusController(updateStatusUse
 const deletePackageUseCase = new DeletePackageUseCase(mysqlPackageRepository);
 export const deletePackageController = new DeletePackageController(deletePackageUseCase);
 
+const calculateCostUseCase = new CalculateCostPackageUseCase(mysqlPackageRepository)
+export const calculateCostPackageController = new CalculateCostPackageController(calculateCostUseCase);

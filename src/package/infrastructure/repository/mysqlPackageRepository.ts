@@ -35,7 +35,7 @@ export class MysqlPackageRepository implements PackageRepository {
         }
     }
 
-    async estimate_cost(distance:number,weight:number, discount:number){
+    async estimate_cost(distance:number,weight:number){
         const basePrice = 1051.87
         let price = distance * 1.25
         if(price < basePrice){
@@ -44,11 +44,10 @@ export class MysqlPackageRepository implements PackageRepository {
         if (weight>85){
             price += 95
         }
-        price -= price * discount
 
         return price;
     }
-    async createPackage(clientId: string, paymentId: string, orderId: string, origin: string, destiny: string, weight: number, discount:number ,details?: string | undefined): Promise<Package | null> {
+    async createPackage(clientId: string, paymentId: string, orderId: string, origin: string, destiny: string, weight: number,cost:number, details?: string | undefined): Promise<Package | null> {
         let oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
         try {
 
@@ -56,7 +55,6 @@ export class MysqlPackageRepository implements PackageRepository {
             
             const uuid = uuidv4()
             let distance = await this.calculate_distance(origin, destiny)
-            let cost = await this.estimate_cost(distance,weight,discount)
             // let creationDate = Date.now()
             let creationDate = new Date();
             const deliveryDate = new Date(creationDate.getTime() + oneWeekInMilliseconds);
@@ -231,4 +229,16 @@ export class MysqlPackageRepository implements PackageRepository {
 
     }
 
+    async calculateCost(origin:string, destiny:string, weight:number){
+        try {
+            const distance = await this.calculate_distance(origin,destiny)
+            const cost = await this.estimate_cost(distance,weight)
+            return {
+                subtotal: cost
+            }
+        }catch (e){
+            console.log(e)
+            return null
+        }
+    }
 }

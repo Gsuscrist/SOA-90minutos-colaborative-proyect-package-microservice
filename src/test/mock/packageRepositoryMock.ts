@@ -71,6 +71,7 @@ export class MockPackageRepository implements PackageRepository {
         origin: string,
         destiny: string,
         weight: number,
+        cost:number,
         details?: string
     ): Promise<Package> {
         const distance = this.calculateDistance(origin, destiny);
@@ -112,5 +113,13 @@ export class MockPackageRepository implements PackageRepository {
 
     private calculateDistance(origin: string, destiny: string): number {
         return 50;
+    }
+
+    sendNotification(id: string): Promise<Package> {
+        throw new Error("method dont implemented")
+    }
+
+    calculateCost(origin: string, destiny: string, weight: number): Promise<{ subtotal: number } | null> {
+        throw new Error("method dont implemented")
     }
 }

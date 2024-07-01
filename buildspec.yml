@@ -1,5 +1,33 @@
 version: 0.2
 
+env:
+  variables:
+    RABBITMQ_HOST: "b-42d44877-0365-461e-ac90-9aa334229a4c.mq.us-east-2.amazonaws.com"
+    RABBITMQ_PROTOCOL: "amqps"
+    RABBITMQ_USER: "package"
+    RABBITMQ_PASS: "9Ik937aWFENX"
+    RABBITMQ_PORT: "5671"
+    RABBIT_EXCHANGE_ADMINISTRATION: "administration_90_minutes"
+    RABBIT_EXCHANGE_USER: "user_90_minutes"
+    RABBIT_QUEUE_GET_ALL_PACKAGES_REQ_ADMINISTRATION: "get_all_packages_req_administration"
+    RABBIT_QUEUE_GET_ALL_PACKAGES_RES_ADMINISTRATION: "get_all_packages_res_administration"
+    RABBIT_QUEUE_GET_ALL_PACKAGE_RATING_REQ_ADMINISTRATION: "get_all_package_rating_req_administration"
+    RABBIT_QUEUE_GET_ALL_PACKAGE_RATING_RES_ADMINISTRATION: "get_all_package_rating_res_administration"
+    RABBIT_QUEUE_GET_ALL_PACKAGE_COMMENT_REQ_ADMINISTRATION: "get_all_package_comment_req_administration"
+    RABBIT_QUEUE_GET_ALL_PACKAGE_COMMENT_RES_ADMINISTRATION: "get_all_package_comment_res_administration"
+    RABBIT_QUEUE_PAYMENT_PACKAGE_RECEIVE_NOTIFICATION: "payment_package_receive_notification_administration"
+    RABBIT_QUEUE_CHECK_USER_DISCOUNT_REQ: "check_user_discount_req_user"
+    RABBIT_QUEUE_CHECK_USER_DISCOUNT_RES: "check_user_discount_res_user"
+    RABBIT_ROUTING_KEY_GET_ALL_PACKAGES_REQ_ADMINISTRATION: "get_all_packages_req.administration"
+    RABBIT_ROUTING_KEY_GET_ALL_PACKAGES_RES_ADMINISTRATION: "get_all_packages_res.administration"
+    RABBIT_ROUTING_KEY_GET_ALL_PACKAGE_RATING_REQ_ADMINISTRATION: "get_all_package_rating_req.administration"
+    RABBIT_ROUTING_KEY_GET_ALL_PACKAGE_RATING_RES_ADMINISTRATION: "get_all_package_rating_res.administration"
+    RABBIT_ROUTING_KEY_GET_ALL_PACKAGE_COMMENT_REQ_ADMINISTRATION: "get_all_package_comment_req.administration"
+    RABBIT_ROUTING_KEY_GET_ALL_PACKAGE_COMMENT_RES_ADMINISTRATION: "get_all_package_comment_res.administration"
+    RABBIT_ROUTING_KEY_PAYMENT_PACKAGE_RECEIVE_NOTIFICATION: "payment_package_receive_notification.administration"
+    RABBIT_ROUTING_KEY_CHECK_USER_DISCOUNT_RES: "check_user_discount_res.user"
+    RABBIT_ROUTING_KEY_CHECK_USER_DISCOUNT_REQ: "check_user_discount_req.user"
+
 phases:
   install:
     runtime-versions:
